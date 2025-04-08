@@ -1,0 +1,41 @@
+﻿@model List<BlogApp.Models.Blog>
+
+@{
+    ViewData["Title"] = "Blog List";
+}
+
+<h2>Blog List</h2>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Title</th>
+            <th>Content</th>
+            @* <th>User</th> *@
+            <th>Publish Date</th>
+            @* <th>Category</th> *@
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var blog in Model)
+        {
+            <tr>
+                <td>@blog.Id</td>
+                <td>@blog.Title</td>
+                <td>@blog.Content</td>
+                <td>@blog.PublishDate</td>
+                <td>
+                    <a asp-action="Update" asp-controller="Blog" asp-route-id="@blog.Id" class=" btn btn-primary">Düzenle</a>
+                    <a asp-action="Delete" asp-controller="Blog" asp-route-id="@blog.Id" class=" btn btn-danger" onclick="return confirm('silmek istediğine emin misin?')">Sil</a>
+                </td>
+
+            </tr>
+        }
+    </tbody>
+
+</table>
+
+<a asp-action="Create" asp-controller="Blog" class=" btn btn-success">Ekle</a>
+@* <a asp-action="Filter" asp-controller="Customer" class=" btn btn-success">Filtrele</a> *@

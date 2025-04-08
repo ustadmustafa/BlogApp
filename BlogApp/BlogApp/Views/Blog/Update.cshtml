@@ -1,0 +1,21 @@
+﻿@model BlogApp.Models.Blog
+
+<h2>Blog Güncelle</h2>
+
+<form asp-action="Update" method="post">
+    <input type="hidden" asp-for="Id">
+
+    <div class="form-group">
+        <label asp-for="Title"></label>
+        <input asp-for="Title" class="form-control" required />
+    </div>
+    <div class="form-group">
+        <label asp-for="Content"></label>
+        <input asp-for="Content" class="form-control" required />
+    </div>
+
+    @*publish date için hidden input alanları tartışılacaktır*@
+    <input type="hidden" asp-for="PublishDate" value="@Model.PublishDate" />
+    <button type="submit" class="btn btn-primary">Güncelle</button>
+    <a asp-action="Index" class="btn btn-secondary">İptal</a>
+</form>
