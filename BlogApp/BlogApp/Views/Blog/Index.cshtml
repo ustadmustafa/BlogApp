@@ -6,6 +6,7 @@
 
 <h2>Blog List</h2>
 
+
 <table class="table table-bordered">
     <thead>
         <tr>
@@ -24,7 +25,7 @@
             <tr>
                 <td>@blog.Id</td>
                 <td>@blog.Title</td>
-                <td>@blog.Content</td>
+                <td><a asp-action="Read" asp-controller="Blog" asp-route-id="@blog.Id" class=" btn btn-outline-success">Oku</a></td>
                 <td>@blog.PublishDate</td>
                 <td>
                     <a asp-action="Update" asp-controller="Blog" asp-route-id="@blog.Id" class=" btn btn-primary">Düzenle</a>

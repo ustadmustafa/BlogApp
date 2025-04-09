@@ -58,5 +58,15 @@ namespace BlogApp.Controllers
             return RedirectToAction("Index");
         }
 
+
+        public IActionResult Read(int id)
+        {
+            var model = table.Find(id);
+
+            return View(model);
+        }
+
+
+
     }
 }

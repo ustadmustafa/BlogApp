@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\musta\\Desktop\\proje\\BlogApp\\BlogApp\\BlogApp.csproj": {}
+    "C:\\Users\\musta\\Desktop\\blogapp\\BlogApp\\BlogApp\\BlogApp\\BlogApp.csproj": {}
   },
   "projects": {
-    "C:\\Users\\musta\\Desktop\\proje\\BlogApp\\BlogApp\\BlogApp.csproj": {
+    "C:\\Users\\musta\\Desktop\\blogapp\\BlogApp\\BlogApp\\BlogApp\\BlogApp.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\musta\\Desktop\\proje\\BlogApp\\BlogApp\\BlogApp.csproj",
+        "projectUniqueName": "C:\\Users\\musta\\Desktop\\blogapp\\BlogApp\\BlogApp\\BlogApp\\BlogApp.csproj",
         "projectName": "BlogApp",
-        "projectPath": "C:\\Users\\musta\\Desktop\\proje\\BlogApp\\BlogApp\\BlogApp.csproj",
+        "projectPath": "C:\\Users\\musta\\Desktop\\blogapp\\BlogApp\\BlogApp\\BlogApp\\BlogApp.csproj",
         "packagesPath": "C:\\Users\\musta\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\musta\\Desktop\\proje\\BlogApp\\BlogApp\\obj\\",
+        "outputPath": "C:\\Users\\musta\\Desktop\\blogapp\\BlogApp\\BlogApp\\BlogApp\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\musta\\AppData\\Roaming\\NuGet\\NuGet.Config",
