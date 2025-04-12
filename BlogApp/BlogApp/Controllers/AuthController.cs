@@ -73,6 +73,15 @@ namespace BlogApp.Controllers
             return RedirectToAction("Login");
         }
 
+        public IActionResult GuestAccess()
+        {
+            HttpContext.Session.Clear();
+            ViewBag.GuestAccess = HttpContext.Session.GetInt32("UserId");
+            return RedirectToAction("Index","Blog");
+        }
+
+
+
 
 
 
