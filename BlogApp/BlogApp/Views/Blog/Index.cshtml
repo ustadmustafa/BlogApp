@@ -6,6 +6,7 @@
 
     ViewData["Title"] = "Blog List";
     var userid = ViewBag.GuestAccess;
+    userid = ViewBag.UserId;
 }
 <h2>Blog List</h2>
 
@@ -32,7 +33,7 @@
                     <td>@blog.Title</td>
                     <td><a asp-action="Read" asp-controller="Blog" asp-route-id="@blog.Id" class=" btn btn-outline-success">Oku</a></td>
                     <td>@blog.PublishDate</td>
-                    <td>@ViewBag.BlogAuthor</td>
+                    <td>@blog.UserName</td>
                     <td>@blog.Category</td>
                 </tr>
             }
@@ -46,7 +47,7 @@
                     <td>@blog.Title</td>
                     <td><a asp-action="Read" asp-controller="Blog" asp-route-id="@blog.Id" class=" btn btn-outline-success">Oku</a></td>
                     <td>@blog.PublishDate</td>
-                    <td>@ViewBag.BlogAuthor</td>
+                    <td>@blog.UserName</td>
                     <td>@blog.Category</td>
                     <td>
                         <a asp-action="Update" asp-controller="Blog" asp-route-id="@blog.Id" class=" btn btn-primary">Düzenle</a>

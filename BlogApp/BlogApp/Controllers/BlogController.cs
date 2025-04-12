@@ -19,6 +19,8 @@ namespace BlogApp.Controllers
         }
         public IActionResult Index()
         {
+            var userId = HttpContext.Session.GetInt32("UserId");
+            ViewBag.UserId = userId;
             var blogAuthor = HttpContext.Session.GetString("UserName");
             ViewBag.BlogAuthor = blogAuthor;
             var blogs = table.ToList();
@@ -28,9 +30,7 @@ namespace BlogApp.Controllers
         public IActionResult Create()
         {
             var userId = HttpContext.Session.GetInt32("UserId");
-            var blogAuthor = HttpContext.Session.GetString("UserName");
-            
-
+          
             return View();
         }
 
@@ -42,7 +42,9 @@ namespace BlogApp.Controllers
             {
                 return RedirectToAction("Login", "Auth"); // Login'e yönlendir
             }
+            ViewBag.Author = HttpContext.Session.GetString("UserName");
             blog.UserId = userId.Value;
+            blog.UserName = ViewBag.Author;
             table.Add(blog);
             _context.SaveChanges();
 

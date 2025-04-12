@@ -37,6 +37,7 @@ namespace BlogApp.Controllers
             }
             HttpContext.Session.SetInt32("UserId", user.Id);
             HttpContext.Session.SetString("UserName", user.UserName);
+            ViewBag.Create = HttpContext.Session.GetInt32("UserId");
             return RedirectToAction("Index", "Blog");
         }
 
