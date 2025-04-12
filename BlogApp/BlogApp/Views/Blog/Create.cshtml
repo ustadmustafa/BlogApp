@@ -3,8 +3,8 @@
 @{
     ViewData["Title"] = "Create Blog";
     var now = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+    var categories = new[] { "Technology", "Health", "Lifestyle", "Business", "Entertainment" };
 }
-
 <h2>Create Blog</h2>
 
 <form asp-action="Create" method="post">
@@ -15,6 +15,16 @@
     <div class="form-group">
         <label asp-for="Content" class="control-label">Content</label>
         <textarea asp-for="Content" class="form-control" rows="6"></textarea>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Category" class="control-label">Category</label>
+        <select asp-for="Category" class="form-control">
+            @foreach (var category in categories)
+            {
+                <option value="@category">@category</option>
+            }
+        </select>
     </div>
 
     <input type="hidden" asp-for="PublishDate" value="@now" />

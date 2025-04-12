@@ -35,6 +35,8 @@ namespace BlogApp.Controllers
             {
                 return BadRequest();
             }
+            HttpContext.Session.SetInt32("UserId", user.Id);
+            HttpContext.Session.SetString("UserName", user.UserName);
             return RedirectToAction("Index", "Blog");
         }
 
@@ -64,6 +66,13 @@ namespace BlogApp.Controllers
 
             return RedirectToAction("Index", "Blog");
         }
+
+        public IActionResult Logout()
+        {
+            HttpContext.Session.Clear();
+            return RedirectToAction("Login");
+        }
+
 
 
 

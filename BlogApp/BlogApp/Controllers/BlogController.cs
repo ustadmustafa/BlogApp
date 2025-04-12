@@ -10,6 +10,7 @@ namespace BlogApp.Controllers
     {
         BlogAppContext _context;
         protected DbSet<Blog> table;
+        protected DbSet<User> tableUser;
 
         public BlogController(BlogAppContext context)
         {
@@ -18,18 +19,30 @@ namespace BlogApp.Controllers
         }
         public IActionResult Index()
         {
+            var blogAuthor = HttpContext.Session.GetString("UserName");
+            ViewBag.BlogAuthor = blogAuthor;
             var blogs = table.ToList();
             return View(blogs);
         }
 
         public IActionResult Create()
         {
+            var userId = HttpContext.Session.GetInt32("UserId");
+            var blogAuthor = HttpContext.Session.GetString("UserName");
+            
+
             return View();
         }
 
         [HttpPost]
         public IActionResult Create(Blog blog)
         {
+            var userId = HttpContext.Session.GetInt32("UserId");
+            if (userId == null)
+            {
+                return RedirectToAction("Login", "Auth"); // Login'e yönlendir
+            }
+            blog.UserId = userId.Value;
             table.Add(blog);
             _context.SaveChanges();
 
