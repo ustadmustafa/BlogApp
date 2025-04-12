@@ -1,15 +1,11 @@
-﻿
-
-@model List<BlogApp.Models.Blog>
+﻿@* Index.cshtml *@
+@model List<BlogViewModel>
 
 @{
-
     ViewData["Title"] = "Blog List";
-    var userid = ViewBag.GuestAccess;
-    userid = ViewBag.UserId;
+    var userid = ViewBag.UserId;
 }
 <h2>Blog List</h2>
-
 
 <table class="table table-bordered">
     <thead>
@@ -20,48 +16,33 @@
             <th>Publish Date</th>
             <th>Author</th>
             <th>Category</th>
-
+            @if (userid != null)
+            {
+                <th>Actions</th>
+            }
         </tr>
     </thead>
     <tbody>
-        @if (userid == null)
+        @foreach (var blog in Model)
         {
-            @foreach (var blog in Model)
-            {
-                <tr>
-                    <td>@blog.Id</td>
-                    <td>@blog.Title</td>
-                    <td><a asp-action="Read" asp-controller="Blog" asp-route-id="@blog.Id" class=" btn btn-outline-success">Oku</a></td>
-                    <td>@blog.PublishDate</td>
-                    <td>@blog.UserName</td>
-                    <td>@blog.Category</td>
-                </tr>
-            }
-        }
-        else
-        {
-            @foreach (var blog in Model)
-            {
-                <tr>
-                    <td>@blog.Id</td>
-                    <td>@blog.Title</td>
-                    <td><a asp-action="Read" asp-controller="Blog" asp-route-id="@blog.Id" class=" btn btn-outline-success">Oku</a></td>
-                    <td>@blog.PublishDate</td>
-                    <td>@blog.UserName</td>
-                    <td>@blog.Category</td>
+            <tr>
+                <td>@blog.Id</td>
+                <td>@blog.Title</td>
+                <td><a asp-action="Read" asp-controller="Blog" asp-route-id="@blog.Id" class="btn btn-outline-success">Oku</a></td>
+                <td>@blog.PublishDate</td>
+                <td>@blog.AuthorName</td>
+                <td>@blog.CategoryName</td>
+                @if (userid != null)
+                {
                     <td>
-                        <a asp-action="Update" asp-controller="Blog" asp-route-id="@blog.Id" class=" btn btn-primary">Düzenle</a>
-                        <a asp-action="Delete" asp-controller="Blog" asp-route-id="@blog.Id" class=" btn btn-danger" onclick="return confirm('silmek istediğine emin misin?')">Sil</a>
+                        <a asp-action="Update" asp-controller="Blog" asp-route-id="@blog.Id" class="btn btn-primary">Düzenle</a>
+                        <a asp-action="Delete" asp-controller="Blog" asp-route-id="@blog.Id" class="btn btn-danger" onclick="return confirm('silmek istediğine emin misin?')">Sil</a>
                     </td>
-
-                </tr>
-            }
+                }
+            </tr>
         }
-        
     </tbody>
-
 </table>
 
-<a asp-action="Create" asp-controller="Blog" class=" btn btn-success">Ekle</a>
-<a asp-action="Logout" asp-controller="Auth" class=" btn btn-danger">Çıkış Yap</a>
-@* <a asp-action="Filter" asp-controller="Customer" class=" btn btn-success">Filtrele</a> *@
+<a asp-action="Create" asp-controller="Blog" class="btn btn-success">Ekle</a>
+<a asp-action="Logout" asp-controller="Auth" class="btn btn-danger">Çıkış Yap</a>

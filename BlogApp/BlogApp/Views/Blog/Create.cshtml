@@ -1,9 +1,9 @@
-﻿@model BlogApp.Models.Blog
+﻿@* Create.cshtml *@
+@model BlogApp.Models.Blog
 
 @{
     ViewData["Title"] = "Create Blog";
     var now = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
-    var categories = new[] { "Technology", "Health", "Lifestyle", "Business", "Entertainment" };
 }
 <h2>Create Blog</h2>
 
@@ -18,18 +18,17 @@
     </div>
 
     <div class="form-group">
-        <label asp-for="Category" class="control-label">Category</label>
-        <select asp-for="Category" class="form-control">
-            @foreach (var category in categories)
+        <label for="CategoryId">Category</label>
+        <select name="CategoryId" class="form-control">
+            @foreach (var category in ViewBag.Categories)
             {
-                <option value="@category">@category</option>
+                <option value="@category.Id">@category.Name</option>
             }
         </select>
     </div>
 
     <input type="hidden" asp-for="PublishDate" value="@now" />
-    <input type="hidden" asp-for="UserName" value="@ViewBag.Author" />
-
+    @* UserName'i kaldırdık, sadece controller'da UserId set ediyoruz *@
 
     <div class="form-group mt-3">
         <button type="submit" class="btn btn-primary">Submit</button>
