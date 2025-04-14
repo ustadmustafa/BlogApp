@@ -1,9 +1,15 @@
 ﻿@model BlogApp.Models.Blog
-
+@{
+    var selectedCategoryId = ViewBag.SelectedCategoryId as int?;
+    bool selectedPrinted = false;
+}
 <h2>Blog Güncelle</h2>
 
 <form asp-action="Update" method="post">
     <input type="hidden" asp-for="Id">
+    <input type="hidden" asp-for="UserId">
+    <input type="hidden" asp-for="PublishDate">
+
 
     <div class="form-group">
         <label asp-for="Title"></label>
@@ -13,9 +19,26 @@
         <label asp-for="Content"></label>
         <textarea asp-for="Content" class="form-control" rows="6"></textarea>
     </div>
-
+    <div class="form-group">
+        <label for="CategoryId">Category</label>
+        <select name="CategoryId" class="form-control">
+            @foreach (var category in ViewBag.UpdateCategories)
+            {
+                if (!selectedPrinted && category.Id == ViewBag.SelectedCategoryId)
+                {
+                    <option value="@category.Id" selected>@category.Name</option>
+                    selectedPrinted = true;
+                }
+                else
+                {
+                    <option value="@category.Id">@category.Name</option>
+                }
+            }
+        </select>
+    </div>
     @*publish date için hidden input alanları tartışılacaktır*@
-    <input type="hidden" asp-for="PublishDate" value="@Model.PublishDate" />
     <button type="submit" class="btn btn-primary">Güncelle</button>
     <a asp-action="Index" class="btn btn-secondary">İptal</a>
+
+    
 </form>

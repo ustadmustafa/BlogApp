@@ -28,16 +28,24 @@ namespace BlogApp.Controllers
         }
 
         [HttpPost]
-        public IActionResult Login(string email, string password)
+        public IActionResult Login(LoginViewModel model)
         {
-            var user = table.FirstOrDefault(x => x.Email == email);
-            if (user == null || user.Password != password)
+            if (!ModelState.IsValid)
             {
-                return BadRequest();
+                return View(model); // Validasyon hatalarıyla birlikte view'a geri dön
             }
-            HttpContext.Session.SetInt32("UserId", user.Id);
-            HttpContext.Session.SetString("UserName", user.UserName);
-            ViewBag.Create = HttpContext.Session.GetInt32("UserId");
+
+            var dbUser = _context.Users.FirstOrDefault(x => x.Email == model.Email);
+
+            if (dbUser == null || dbUser.Password != model.Password)
+            {
+                ModelState.AddModelError("", "Email veya şifre hatalı!");
+                return View(model);
+            }
+
+            HttpContext.Session.SetInt32("UserId", dbUser.Id);
+            HttpContext.Session.SetString("UserName", dbUser.UserName);
+
             return RedirectToAction("Index", "Blog");
         }
 

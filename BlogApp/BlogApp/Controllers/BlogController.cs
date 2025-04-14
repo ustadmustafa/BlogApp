@@ -17,7 +17,6 @@ namespace BlogApp.Controllers
             _context = context;
             table = context.Set<Blog>();
         }
-        // BlogController.cs
         public IActionResult Index()
         {
             var blogs = from b in _context.Blogs
@@ -54,7 +53,7 @@ namespace BlogApp.Controllers
                 return RedirectToAction("Login", "Auth");
             }
 
-            blog.UserId = userId.Value;  // Sadece UserId'yi set ediyoruz
+            blog.UserId = userId.Value;  
             blog.PublishDate = DateTime.Now.ToString();
 
             _context.Blogs.Add(blog);
@@ -65,7 +64,10 @@ namespace BlogApp.Controllers
 
         public IActionResult Update(int id)
         {
+            ViewBag.UpdateCategories = _context.Categories.ToList();
             var blog = table.Find(id);
+            
+            ViewBag.SelectedCategoryId = blog.CategoryId;
 
             return View(blog);
         }
