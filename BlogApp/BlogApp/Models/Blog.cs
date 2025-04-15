@@ -31,5 +31,6 @@ namespace BlogApp.Models
         [Required(ErrorMessage = "Yayın tarihi zorunludur.")]
         [DataType(DataType.DateTime)]
         public string PublishDate { get; set; }
+
     }
 }

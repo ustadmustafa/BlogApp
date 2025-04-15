@@ -69,7 +69,7 @@ namespace BlogApp.Controllers
 
         public IActionResult Update(int id)
         {
-            ViewBag.UpdateCategories = _context.Categories.ToList();
+            ViewBag.Categories = _context.Categories.ToList();
             var blog = table.Find(id);
             
             ViewBag.SelectedCategoryId = blog.CategoryId;
@@ -82,7 +82,7 @@ namespace BlogApp.Controllers
         {
             if (!ModelState.IsValid)
             {
-                ViewBag.UpdateCategories = _context.Categories.ToList();
+                ViewBag.Categories = _context.Categories.ToList();
                 return View(blog);
             }
             table.Update(blog);

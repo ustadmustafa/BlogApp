@@ -1,48 +1,18 @@
-﻿@model BlogApp.Models.Blog
-@{
-    var selectedCategoryId = ViewBag.SelectedCategoryId as int?;
-    bool selectedPrinted = false;
-}
-<h2>Blog Güncelle</h2>
+﻿@* Update.cshtml *@
+@model BlogApp.Models.Blog
+
+<h2 class="mb-4">Update Blog</h2>
 
 <form asp-action="Update" method="post">
     <input type="hidden" asp-for="Id">
     <input type="hidden" asp-for="UserId">
     <input type="hidden" asp-for="PublishDate">
 
+    @* Aynı partial view'ı burada da kullan *@
+    <partial name="_BlogForm" model="Model" />
 
-    <div class="form-group">
-        <label asp-for="Title" class="form-label">Title</label>
-        <input asp-for="Title" class="form-control" />
-        <span asp-validation-for="Title" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-        <label asp-for="Content" class="form-label">Content</label>
-        <textarea asp-for="Content" class="form-control" rows="6"></textarea>
-        <span asp-validation-for="Content" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-        <label for="CategoryId">Category</label>
-        <select name="CategoryId" class="form-control">
-            @foreach (var category in ViewBag.UpdateCategories)
-            {
-                if (!selectedPrinted && category.Id == ViewBag.SelectedCategoryId)
-                {
-                    <option value="@category.Id" selected>@category.Name</option>
-                    selectedPrinted = true;
-                }
-                else
-                {
-                    <option value="@category.Id">@category.Name</option>
-                }
-            }
-        </select>
-    </div>
-    @*publish date için hidden input alanları tartışılacaktır*@
     <div class="mt-4">
-        <button type="submit" class="btn btn-primary">Güncelle</button>
-        <a asp-action="Index" class="btn btn-secondary ms-2">İptal</a>
+        <button type="submit" class="btn btn-primary">Update</button>
+        <a asp-action="Index" class="btn btn-secondary ms-2">Cancel</a>
     </div>
-
-    
 </form>
