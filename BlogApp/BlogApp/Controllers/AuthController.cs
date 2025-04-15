@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System.Reflection.Metadata;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace BlogApp.Controllers
 {
@@ -56,22 +57,34 @@ namespace BlogApp.Controllers
         }
 
         [HttpPost]
-        public IActionResult Register(string username, string password, string email)
+        public IActionResult Register(RegisterViewModel registerViewModel)
         {
-            var user = table.FirstOrDefault(x => x.Email == email);
+            if (!ModelState.IsValid)
+            {
+                return View(registerViewModel); 
+            }
+
+            var user = table.FirstOrDefault(x => x.Email == registerViewModel.Email);
             if(user != null)
             {
                 return BadRequest();
             }
             User usertoadd = new User
             {
-                UserName = username,
-                Email = email,
-                Password = password
+                UserName = registerViewModel.UserName,
+                Email = registerViewModel.Email,
+                Password = registerViewModel.Password
             };
 
             table.Add(usertoadd);
             _context.SaveChanges();
+
+
+            var dbUser = _context.Users.FirstOrDefault(x => x.Email == registerViewModel.Email);
+
+            HttpContext.Session.SetInt32("UserId", dbUser.Id);
+            HttpContext.Session.SetString("UserName", registerViewModel.UserName);
+
 
             return RedirectToAction("Index", "Blog");
         }

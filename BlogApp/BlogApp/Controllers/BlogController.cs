@@ -47,6 +47,11 @@ namespace BlogApp.Controllers
         [HttpPost]
         public IActionResult Create(Blog blog)
         {
+            if (!ModelState.IsValid)
+            {
+                ViewBag.Categories = _context.Categories.ToList();
+                return View(blog);
+            }
             var userId = HttpContext.Session.GetInt32("UserId");
             if (userId == null)
             {
@@ -74,7 +79,12 @@ namespace BlogApp.Controllers
 
         [HttpPost]
         public IActionResult Update(Blog blog)
-        {           
+        {
+            if (!ModelState.IsValid)
+            {
+                ViewBag.UpdateCategories = _context.Categories.ToList();
+                return View(blog);
+            }
             table.Update(blog);
             _context.SaveChanges();
             return RedirectToAction("Index");

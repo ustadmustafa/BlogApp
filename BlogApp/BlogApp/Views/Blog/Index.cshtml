@@ -44,5 +44,8 @@
     </tbody>
 </table>
 
-<a asp-action="Create" asp-controller="Blog" class="btn btn-success">Ekle</a>
+@if (userid != null)
+{
+    <a asp-action="Create" asp-controller="Blog" class="btn btn-success">Ekle</a>
+}
 <a asp-action="Logout" asp-controller="Auth" class="btn btn-danger">Çıkış Yap</a>
