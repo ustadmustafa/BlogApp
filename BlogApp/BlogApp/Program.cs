@@ -1,9 +1,18 @@
 using BlogApp.Contexts;
+using BlogApp.Models;
+using BlogApp.Repository.Concrete;
+using BlogApp.Repository.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using RepositoryDesignPattern.Repository.Base;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.AddControllersWithViews();
+builder.Services.AddScoped<IRepository<Blog>, Repository<Blog>>();
+builder.Services.AddScoped<IRepository<User>, Repository<User>>();
+builder.Services.AddScoped<IBlogRepository, BlogRepository>();
+builder.Services.AddScoped<IAuthRepository, AuthRepository>();
 builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<BlogAppContext>(options => options.UseSqlServer("server=(localdb)\\mssqllocaldb; database=BlogAppDatabase; integrated security=true;"));
 builder.Services.AddDistributedMemoryCache();

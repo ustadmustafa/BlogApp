@@ -1,7 +1,7 @@
 ﻿namespace BlogApp.Models
 {
     
-    public class BlogViewModel
+    public class BlogViewModel : Entity
     {
         public int Id { get; set; }
         public string Title { get; set; }

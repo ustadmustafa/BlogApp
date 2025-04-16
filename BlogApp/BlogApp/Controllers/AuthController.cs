@@ -1,5 +1,6 @@
 ﻿using BlogApp.Contexts;
 using BlogApp.Models;
+using BlogApp.Repository.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
@@ -12,11 +13,15 @@ namespace BlogApp.Controllers
     {
         BlogAppContext _context;
         protected DbSet<User> table;
+        IRepository<User> _userRepository;
+        IAuthRepository _authRepo;
 
-        public AuthController(BlogAppContext context)
+        public AuthController(BlogAppContext context, IRepository<User> userRepository, IAuthRepository authRepo)
         {
             _context = context;
             table = context.Set<User>();
+            _userRepository = userRepository;
+            _authRepo = authRepo;
         }
         public IActionResult Index()
         {
@@ -36,8 +41,9 @@ namespace BlogApp.Controllers
                 return View(model); // Validasyon hatalarıyla birlikte view'a geri dön
             }
 
-            var dbUser = _context.Users.FirstOrDefault(x => x.Email == model.Email);
+            var dbUser = _authRepo.Login(model); 
 
+            //user repository için
             if (dbUser == null || dbUser.Password != model.Password)
             {
                 ModelState.AddModelError("", "Email veya şifre hatalı!");
@@ -76,8 +82,9 @@ namespace BlogApp.Controllers
                 Password = registerViewModel.Password
             };
 
-            table.Add(usertoadd);
-            _context.SaveChanges();
+            _userRepository.Create(usertoadd);
+            //table.Add(usertoadd);
+            //_context.SaveChanges();
 
 
             var dbUser = _context.Users.FirstOrDefault(x => x.Email == registerViewModel.Email);

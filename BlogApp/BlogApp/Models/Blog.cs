@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 namespace BlogApp.Models
 {
 
-    public class Blog
+    public class Blog : Entity
     {
         public int Id { get; set; }
 

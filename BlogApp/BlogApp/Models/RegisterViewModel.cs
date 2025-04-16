@@ -5,7 +5,7 @@ namespace BlogApp.Models
     public class RegisterViewModel
     {
         [Required(ErrorMessage = "Kullanıcı adı alanı zorunludur.")]
-        [MinLength(8, ErrorMessage = "Kullanıcı adı en az 8 karakter olmalıdır.")]
+        [MinLength(8, ErrorMessage = "Kullanıcı adı en az 6 karakter olmalıdır.")]
         [MaxLength(25, ErrorMessage = "Kullanıcı adı en fazla 25 karakter olmalıdır.")]
         public string UserName { get; set; }
 

@@ -1,5 +1,6 @@
 ﻿using BlogApp.Contexts;
 using BlogApp.Models;
+using BlogApp.Repository.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
@@ -11,11 +12,15 @@ namespace BlogApp.Controllers
         BlogAppContext _context;
         protected DbSet<Blog> table;
         protected DbSet<User> tableUser;
+        IRepository<Blog> _blogRepository;
+        IBlogRepository _blogRepo;
 
-        public BlogController(BlogAppContext context)
+        public BlogController(BlogAppContext context, IRepository<Blog> blogRepository, IBlogRepository blogRepo)
         {
             _context = context;
             table = context.Set<Blog>();
+            _blogRepository = blogRepository;
+            _blogRepo = blogRepo;
         }
         public IActionResult Index()
         {
@@ -61,8 +66,10 @@ namespace BlogApp.Controllers
             blog.UserId = userId.Value;  
             blog.PublishDate = DateTime.Now.ToString();
 
-            _context.Blogs.Add(blog);
-            _context.SaveChanges();
+
+            _blogRepository.Create(blog);
+            //_context.Blogs.Add(blog);
+            //_context.SaveChanges();
 
             return RedirectToAction("Index");
         }
@@ -85,22 +92,24 @@ namespace BlogApp.Controllers
                 ViewBag.Categories = _context.Categories.ToList();
                 return View(blog);
             }
-            table.Update(blog);
-            _context.SaveChanges();
+            _blogRepository.Edit(blog);
+            //table.Update(blog);
+            //_context.SaveChanges();
             return RedirectToAction("Index");
         }
 
         public IActionResult Delete(int id)
         {
-            table.Remove(table.Find(id));
-            _context.SaveChanges();
+            _blogRepository.Delete(id);
+            //table.Remove(table.Find(id));
+            //_context.SaveChanges();
             return RedirectToAction("Index");
         }
 
 
         public IActionResult Read(int id)
         {
-            var model = table.Find(id);
+            var model = _blogRepo.Read(id);
 
             return View(model);
         }
